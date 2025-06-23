@@ -1,5 +1,7 @@
-
+import cv2
+import numpy as np
 from PIL import Image
+import os
 def choseSymbol(brightness):
     palete2 = "  ··──││░░▒▒▓▓██" 
     selectPalete = palete2
@@ -51,8 +53,7 @@ def DEBUG_print_data_pixels(ImageName):
             x += 1
         print("")
         y += 1
-def createImage(imageName):
-    image = Image.open(imageName)  
+def createImage(image):
     pixels = image.load()
     width, height = image.size
     y = 0
@@ -76,11 +77,35 @@ def createImage(imageName):
         
         y += 1
 
+        
+def clearScreen():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+
+def startVideo(video_path):
+    cap = cv2.VideoCapture(video_path)
+    if not cap.isOpened():
+        print("Open file error")
+        return
+    
+    frame_count = 0
+    try:
+        while True:
+            ret, frame = cap.read()
+            if not ret:
+                break
+            rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            pil_image = Image.fromarray(rgb_frame)
+            clearScreen() 
+            createImage(pil_image)
+            frame_count += 1
+    finally:
+        cap.release()
+        print(f"\n end frames :  {frame_count}")
 
 def main():
-    createImage("Molly.png")
+    startVideo("720p.mp4")
     
-
 
 if __name__=="__main__": 
     main() 
