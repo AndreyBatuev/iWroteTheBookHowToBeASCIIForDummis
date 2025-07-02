@@ -1,9 +1,13 @@
 import cv2
 import numpy as np
 from PIL import Image
+import time
 import os
 def choseSymbol(brightness):
+    palete1 = " .`:-~=+*!?8%@#▀"
+
     palete2 = "  ··──││░░▒▒▓▓██" 
+
     selectPalete = palete2
     if brightness < 15:
         return selectPalete[0]
@@ -53,36 +57,36 @@ def DEBUG_print_data_pixels(ImageName):
             x += 1
         print("")
         y += 1
-def createImage(image):
+def createImage(image, block_size=1):
     pixels = image.load()
     width, height = image.size
-    y = 0
-    while y != height:
-        x = 0
-        while x != width:
-            if image.mode == 'RGBA':
-                r, g, b, a = pixels[x, y]
-            else:
-                r, g, b = pixels[x, y]
+    
+    for y in range(0, height, block_size):
+        for x in range(0, width, block_size):
 
+            total = 0
+            count = 0
             
-            brightness_simple = (r + g + b) // 3 
-            print (choseSymbol(brightness_simple), end="")
-
-            x += 1
+            for dy in range(block_size):
+                for dx in range(block_size):
+                    if y + dy < height and x + dx < width:  
+                        if image.mode == 'RGBA':
+                            r, g, b, a = pixels[x + dx, y + dy]
+                        else:
+                            r, g, b = pixels[x + dx, y + dy]
+                        total += (r + g + b) // 3
+                        count += 1
             
-
-
-        print("")
+            if count > 0:
+                avg_brightness = total // count
+                print(choseSymbol(avg_brightness), end="")
         
-        y += 1
-
-        
+        print() 
 def clearScreen():
     os.system('cls' if os.name == 'nt' else 'clear')
+    
 
-
-def startVideo(video_path):
+def startVideo(video_path, blockSize):
     cap = cv2.VideoCapture(video_path)
     if not cap.isOpened():
         print("Open file error")
@@ -97,14 +101,14 @@ def startVideo(video_path):
             rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             pil_image = Image.fromarray(rgb_frame)
             clearScreen() 
-            createImage(pil_image)
+            createImage(pil_image, blockSize)
             frame_count += 1
     finally:
         cap.release()
         print(f"\n end frames :  {frame_count}")
 
 def main():
-    startVideo("720p.mp4")
+    startVideo("7.mp4", 6)
     
 
 if __name__=="__main__": 
