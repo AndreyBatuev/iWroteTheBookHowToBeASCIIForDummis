@@ -57,6 +57,30 @@ def DEBUG_print_data_pixels(ImageName):
             x += 1
         print("")
         y += 1
+def createImageFromFile(imageName):
+    image = Image.open(imageName)  
+    pixels = image.load()
+    width, height = image.size
+    y = 0
+    while y != height:
+        x = 0
+        while x != width:
+            if image.mode == 'RGBA':
+                r, g, b, a = pixels[x, y]
+            else:
+                r, g, b = pixels[x, y]
+
+            
+            brightness_simple = (r + g + b) // 3 
+            print (choseSymbol(brightness_simple), end="")
+
+            x += 1
+            
+
+
+        print("")
+        
+        y += 1
 def createImage(image, block_size=1):
     pixels = image.load()
     width, height = image.size
@@ -108,7 +132,7 @@ def startVideo(video_path, blockSize):
         print(f"\n end frames :  {frame_count}")
 
 def main():
-    startVideo("7.mp4", 6)
+    createImageFromFile("Molly.png")
     
 
 if __name__=="__main__": 
