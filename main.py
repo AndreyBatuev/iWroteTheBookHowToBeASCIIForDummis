@@ -145,11 +145,28 @@ def printHelp():
 def main():
     parser = argparse.ArgumentParser(add_help=False)
     parser.add_argument("-h", "--help", action="store_true")
-
+    parser.add_argument("-v", "--video")
+    parser.add_argument("-b", "--blockSize")
+    parser.add_argument("-i", "--image")
+    
+    
     args = parser.parse_args()
-
     if args.help:
         printHelp()
+        return
+    if args.image:
+        print(f"Image is {args.image}")
+        createImageFromFile(args.image)
+        return
+    if args.video:
+        print(f"Video is  {args.video} Block size is {args.blockSize}")
+        if args.blockSize == None:
+            startVideo(args.video, 1)
+        else:
+            startVideo(args.video, int(args.blockSize))
+        return
+    if args.blockSize:
+        print("Use flag -h")
         return
     
 
