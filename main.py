@@ -3,6 +3,7 @@ import numpy as np
 from PIL import Image
 import time
 import os
+import argparse
 def choseSymbol(brightness):
     palete1 = " .`:-~=+*!?8%@#▀"
 
@@ -131,8 +132,25 @@ def startVideo(video_path, blockSize):
         cap.release()
         print(f"\n end frames :  {frame_count}")
 
+def printHelp():
+    print("""
+    I Wrote The Book How To Be ASCII For Dummis
+    
+    Flags:
+    -v name.mp4         Use video image
+    -b 8                BlockSizeImages
+    -i Molly.png        Use imageCreator 
+    -h                  Show help
+    """)
 def main():
-    createImageFromFile("Molly.png")
+    parser = argparse.ArgumentParser(add_help=False)
+    parser.add_argument("-h", "--help", action="store_true")
+
+    args = parser.parse_args()
+
+    if args.help:
+        printHelp()
+        return
     
 
 if __name__=="__main__": 
