@@ -130,7 +130,6 @@ def startVideo(video_path, blockSize):
             frame_count += 1
     finally:
         cap.release()
-        print(f"\n end frames :  {frame_count}")
 
 def printHelp():
     print("""
@@ -155,11 +154,9 @@ def main():
         printHelp()
         return
     if args.image:
-        print(f"Image is {args.image}")
         createImageFromFile(args.image)
         return
     if args.video:
-        print(f"Video is  {args.video} Block size is {args.blockSize}")
         if args.blockSize == None:
             startVideo(args.video, 1)
         else:
