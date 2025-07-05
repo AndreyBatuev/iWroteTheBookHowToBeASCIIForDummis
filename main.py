@@ -357,10 +357,12 @@ def printHelp():
     I Wrote The Book How To Be ASCII For Dummis
     
     Flags:
-    -v name.mp4         Use video image
-    -b 8                BlockSizeImages
-    -i Molly.png        Use imageCreator 
+    -v name.mp4         Use video play
+    -b 8                BlockSizeImages for video
+    -i Molly.png        Use image creator 
+    -w "String a"       Print string like ASCII art
     -h                  Show help
+
     """)
 def main():
     parser = argparse.ArgumentParser(add_help=False)
