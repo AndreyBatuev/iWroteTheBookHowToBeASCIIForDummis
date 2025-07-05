@@ -206,10 +206,8 @@ def generate_ascii_word(word, letter_height=5):
         ]
         }    
 
-
-        print("\n\n")
         word = word.upper()
-        
+
         for letter in word:
             if letter not in letters:
                 raise ValueError(f"Letter '{letter}' not support")
@@ -218,11 +216,10 @@ def generate_ascii_word(word, letter_height=5):
         for line_num in range(letter_height):
             line = "".join([letters[letter][line_num] for letter in word]) 
             lines.append(line)
-        return "\n".join(lines)
-    else:
-        return "To many words, try zoom terminal or use the message less"
-    
 
+
+        result = "\n" * 3 + "\n".join(lines) + "\n" * 3
+        return result
 
 
 
