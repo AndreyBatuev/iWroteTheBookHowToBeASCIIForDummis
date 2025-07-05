@@ -1,4 +1,6 @@
-# I Wrote The Book How To Be ASCII For Dummis
+
+![intro](https://github.com/AndreyBatuev/iWroteTheBookHowToBeASCIIForDummis/raw/main/readMeFiles/intro.png) <br><br>
+
 ## About program
 Convert video and pictures in console <br>
 
